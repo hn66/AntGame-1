@@ -41,6 +41,9 @@ public class AntTest {
 
     /**
      * Test of other_color method, of class Ant.
+     * pass if returning opposite color
+     * return RED if its a black ant
+     * return BLACK if tis a red ant
      */
     @Test
     public void testOther_color() {
@@ -50,11 +53,11 @@ public class AntTest {
         Color expResult = Color.BLACK;
         Color result = c.other_color(c);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
      * Test of set_state method, of class Ant.
+     * pass if the ant able to store the state assigned to it
      */
     @Test
     public void testSet_state() {
@@ -70,14 +73,14 @@ public class AntTest {
         World w = new World(customWorld, ant);
         Ant a = new Ant(w, pos,c);
         int s = 0;
-        a.set_state(a, s);
-        int result = a.state(a);
+        a.set_state(s);
+        int result = a.state();
         assertEquals(s, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
      * Test of set_resting method, of class Ant.
+     * check if parametre resting is correctly stored
      */
     @Test
     public void testSet_resting() {
@@ -93,14 +96,14 @@ public class AntTest {
         World w = new World(customWorld, ant);
         Ant a = new Ant(w, pos,c);
         int r = 0;
-        a.set_resting(a, r);
-        int result = a.resting(a);
+        a.set_resting(r);
+        int result = a.resting();
         assertEquals(r, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
      * Test of set_direction method, of class Ant.
+     * check if parametre direction is correctly stored
      */
     @Test
     public void testSet_direction() {
@@ -116,15 +119,14 @@ public class AntTest {
         World w = new World(customWorld, ant);
         Ant a = new Ant(w, pos,c);
         int d = 0;
-        a.set_direction(a, d);
-        int result = a.direction(a);
+        a.set_direction(d);
+        int result = a.direction();
         assertEquals(d, result);
-
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
      * Test of set_has_food method, of class Ant.
+     * check if parametre has_food is correctly updated
      */
     @Test
     public void testSet_has_food() {
@@ -140,14 +142,14 @@ public class AntTest {
         World w = new World(customWorld, ant);
         Ant a = new Ant(w, pos,c);
         boolean b = false;
-        a.set_has_food(a, b);
-        boolean result = a.has_food(a);
+        a.set_has_food(b);
+        boolean result = a.has_food();
         assertEquals(b, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
      * Test of adjacent_ants method, of class Ant.
+     * check if the number of adjecent ant can be found correctly
      */
     @Test
     public void testAdjacent_ants() {
@@ -165,13 +167,13 @@ public class AntTest {
         Ant a = new Ant(w, pos,c);
         Ant instance = new Ant(w, p,c);
         int expResult = 0;
-        int result = instance.adjacent_ants(p, c);
+        int result = w.adjacent_ants(p, c);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
      * Test of check_for_surrounded_ant_at method, of class Ant.
+     * check can the method check_for_surrounded_ant_at run properly 
      */
     @Test
     public void testCheck_for_surrounded_ant_at() {
@@ -187,12 +189,12 @@ public class AntTest {
         }
         World w = new World(customWorld, ant);
         Ant instance = new Ant(w, p,c);
-        instance.check_for_surrounded_ant_at(p);
-        // TODO review the generated test code and remove the default call to fail.
+        w.check_for_surrounded_ant_at(p);
     }
 
     /**
      * Test of check_for_surrounded_ants method, of class Ant.
+     * test if check_for_surrounded_ants method able to get the correct number of ant surrounding the particular cell
      */
     @Test
     public void testCheck_for_surrounded_ants() {
@@ -209,12 +211,12 @@ public class AntTest {
         World w = new World(customWorld, ant);
         Ant a = new Ant(w, p,c);       
         Ant instance = new Ant(w, pos,c);
-        instance.check_for_surrounded_ants(pos);
-        // TODO review the generated test code and remove the default call to fail.
+        w.check_for_surrounded_ants(pos);
     }
 
     /**
      * Test of getCell method, of class Ant.
+     * check can cell can be stored and retrieved correctly from an ant
      */
     @Test
     public void testGetCell() {
@@ -233,11 +235,11 @@ public class AntTest {
         System.out.println(result.getX());
         System.out.println(result.getY());
         assertEquals(p, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
      * Test of getId method, of class Ant.
+     * check if the id of the ant canbe retrieved
      */
     @Test
     public void testGetId() {
@@ -255,7 +257,6 @@ public class AntTest {
         int expResult = 0;
         int result = instance.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
 }
