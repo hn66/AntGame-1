@@ -50,7 +50,7 @@ public class WorldTest {
      */
     @Test
     public void testSenseStep() throws IOException, FileNotFoundException, InvalidSyntaxException {
-        System.out.println("step");
+        System.out.println("Sense");
         int id = 3;
         Cell pos = new Cell(2, 1);
         Cond cond = new Friend();
@@ -62,22 +62,19 @@ public class WorldTest {
             }
         }
         World instance = new World(customWorld, ant);
-        MapParser mp = new MapParser();
-        instance = mp.loadWorld("src/antgame/worlds/world2");
-        instance.setWorldGrid(mp.getWorldGrid());
-        Ant a = new Ant(instance, pos, c);
+        Ant a = new Ant(instance, pos,c);
+        Sense.Dir sd = Sense.Dir.HERE;
+        Instruction Sense = new Sense(sd,1,3,cond);
+        ArrayList<Instruction> red = new ArrayList<>();
+        ArrayList<Ant> ant = new ArrayList<>();
+        ant.add(a);
+        red.add(Sense);
+        instance.setRedBrain(red);
+        instance.set_ant_at(pos, a);
+        instance.setAnts(ant);
         a.setId(id);
-        a.set_resting(0);
-        pos.setAnt(a);
-        //instance.addAnt(a);
-        instance.ants.add(a);
-        ArrayList<Instruction> instruction;
-        instruction = new ArrayList<>();
-        instruction.add(new Sense(Sense.Dir.HERE, 3, 4, cond));
-        AntBrainParser abp = new AntBrainParser();
-        instance.setRedBrain(abp.parseBrain("src/antgame/brains/brain1.txt"));
         instance.step(id);
-        int expect = 0;
+        int expect = 1;
         int result = a.state;
         assertEquals(expect, result);
     }
@@ -100,22 +97,18 @@ public class WorldTest {
             }
         }
         World instance = new World(customWorld, ant);
-        MapParser mp = new MapParser();
-        instance = mp.loadWorld("src/antgame/worlds/world2");
-        instance.setWorldGrid(mp.getWorldGrid());
-        Ant a = new Ant(instance, pos, c);
+        Ant a = new Ant(instance, pos,c);
+        Instruction pick = new PickUp(2, 4); 
+        ArrayList<Instruction> red = new ArrayList<>();
+        ArrayList<Ant> ant = new ArrayList<>();
+        ant.add(a);
+        red.add(pick);
+        instance.setRedBrain(red);
+        instance.set_ant_at(pos, a);
+        instance.setAnts(ant);
         a.setId(id);
-        a.set_resting(0);
-
-        pos.setAnt(a);
-        instance.ants.add(a);
-        ArrayList<Instruction> instruction;
-        instruction = new ArrayList<>();
-        instruction.add(new PickUp(1, 3));
-        AntBrainParser abp = new AntBrainParser();
-        instance.setRedBrain(abp.parseBrain("src/antgame/brains/brain1.txt"));
         instance.step(id);
-        int expect = 0;
+        int expect = 4;
         int result = a.state;
         assertEquals(expect, result);
     }
@@ -138,23 +131,18 @@ public class WorldTest {
             }
         }
         World instance = new World(customWorld, ant);
-        MapParser mp = new MapParser();
-        instance = mp.loadWorld("src/antgame/worlds/world2");
-        instance.setWorldGrid(mp.getWorldGrid());
-        Ant a = new Ant(instance, pos, c);
+        Ant a = new Ant(instance, pos,c);
+        Instruction drop = new Drop(5); 
+        ArrayList<Instruction> red = new ArrayList<>();
+        ArrayList<Ant> ant = new ArrayList<>();
+        ant.add(a);
+        red.add(drop);
+        instance.setRedBrain(red);
+        instance.set_ant_at(pos, a);
+        instance.setAnts(ant);
         a.setId(id);
-        a.set_resting(0);
-
-        pos.setAnt(a);
-        //instance.addAnt(a);
-        instance.ants.add(a);
-        ArrayList<Instruction> instruction;
-        instruction = new ArrayList<>();
-        instruction.add(new Drop(1));
-        AntBrainParser abp = new AntBrainParser();
-        instance.setRedBrain(abp.parseBrain("src/antgame/brains/brain1.txt"));
         instance.step(id);
-        int expect = 0;
+        int expect = 5;
         int result = a.state;
         assertEquals(expect, result);
     }
@@ -178,23 +166,18 @@ public class WorldTest {
             }
         }
         World instance = new World(customWorld, ant);
-        MapParser mp = new MapParser();
-        instance = mp.loadWorld("src/antgame/worlds/world2");
-        instance.setWorldGrid(mp.getWorldGrid());
-        Ant a = new Ant(instance, pos, c);
+        Ant a = new Ant(instance, pos,c);
+        Instruction turn = new Turn(Left_Right.LEFT, 4); 
+        ArrayList<Instruction> red = new ArrayList<>();
+        ArrayList<Ant> ant = new ArrayList<>();
+        ant.add(a);
+        red.add(turn);
+        instance.setRedBrain(red);
+        instance.set_ant_at(pos, a);
+        instance.setAnts(ant);
         a.setId(id);
-        a.set_resting(0);
-        pos.setAnt(a);
-        //instance.addAnt(a);
-        instance.ants.add(a);
-        ArrayList<Instruction> instruction;
-        instruction = new ArrayList<>();
-        Left_Right lr = Left_Right.LEFT;
-        instruction.add(new Turn(lr, 1));
-        AntBrainParser abp = new AntBrainParser();
-        instance.setRedBrain(abp.parseBrain("src/antgame/brains/brain1.txt"));
         instance.step(id);
-        int expect = 0;
+        int expect = 4;
         int result = a.state;
         assertEquals(expect, result);
     }
@@ -215,18 +198,18 @@ public class WorldTest {
             }
         }
         World instance = new World(customWorld, ant);
-        Ant a = new Ant(instance, pos, c);
+        Ant a = new Ant(instance, pos,c);
+        Instruction mark = new Mark(2, 9); 
+        ArrayList<Instruction> red = new ArrayList<>();
+        ArrayList<Ant> ant = new ArrayList<>();
+        ant.add(a);
+        red.add(mark);
+        instance.setRedBrain(red);
+        instance.set_ant_at(pos, a);
+        instance.setAnts(ant);
         a.setId(id);
-        a.set_resting(0);
-        pos.setAnt(a);
-        instance.ants.add(a);
-        ArrayList<Instruction> instruction;
-        instruction = new ArrayList<>();
-        instruction.add(new Mark(5, 2));
-        AntBrain ab = new AntBrain(instruction);
-        instance.setRedBrain(ab.getInstructions());
         instance.step(id);
-        int expect = 0;
+        int expect = 9;
         int result = a.state;
         assertEquals(expect, result);
     }
@@ -248,18 +231,18 @@ public class WorldTest {
             }
         }
         World instance = new World(customWorld, ant);
-        Ant a = new Ant(instance, pos, c);
+        Ant a = new Ant(instance, pos,c);
+        Instruction move = new Move(8, 4); 
+        ArrayList<Instruction> red = new ArrayList<>();
+        ArrayList<Ant> ant = new ArrayList<>();
+        ant.add(a);
+        red.add(move);
+        instance.setRedBrain(red);
+        instance.set_ant_at(pos, a);
+        instance.setAnts(ant);
         a.setId(id);
-        a.set_resting(0);
-        pos.setAnt(a);
-        instance.ants.add(a);
-        ArrayList<Instruction> instruction;
-        instruction = new ArrayList<>();
-        instruction.add(new Move(5, 2));
-        AntBrain ab = new AntBrain(instruction);
-        instance.setRedBrain(ab.getInstructions());
         instance.step(id);
-        int expect = 0;
+        int expect = 8;
         int result = a.state;
         assertEquals(expect, result);
     }
@@ -284,18 +267,22 @@ public class WorldTest {
             }
         }
         World instance = new World(customWorld, ant);
-        Ant a = new Ant(instance, pos, c);
+        Ant a = new Ant(instance, pos,c);
+        Instruction flip = new Flip(2, 2, 4); 
+        ArrayList<Instruction> red = new ArrayList<>();
+        ArrayList<Ant> ant = new ArrayList<>();
+        ant.add(a);
+        red.add(flip);
+        instance.setRedBrain(red);
+        instance.set_ant_at(pos, a);
+        instance.setAnts(ant);
         a.setId(id);
-        a.set_resting(0);
-        pos.setAnt(a);
-        instance.ants.add(a);
-        ArrayList<Instruction> instruction;
-        instruction = new ArrayList<>();
-        instruction.add(new Flip(1,2,3));
-        AntBrain ab = new AntBrain(instruction);
-        instance.setRedBrain(ab.getInstructions());
         instance.step(id);
-        int expect = 3;
+        int expect;
+        if(instance.randomint(2) == 0)
+            expect = 2;
+        else
+            expect = 4;
         int result = a.state;
         assertEquals(expect, result);
     }
@@ -317,18 +304,18 @@ public class WorldTest {
             }
         }
         World instance = new World(customWorld, ant);
-        Ant a = new Ant(instance, pos, c);
+        Ant a = new Ant(instance, pos,c);
+        Instruction unmark = new Unmark(2, 9); 
+        ArrayList<Instruction> red = new ArrayList<>();
+        ArrayList<Ant> ant = new ArrayList<>();
+        ant.add(a);
+        red.add(unmark);
+        instance.setRedBrain(red);
+        instance.set_ant_at(pos, a);
+        instance.setAnts(ant);
         a.setId(id);
-        a.set_resting(0);
-        pos.setAnt(a);
-        instance.ants.add(a);
-        ArrayList<Instruction> instruction;
-        instruction = new ArrayList<>();
-        instruction.add(new Unmark(5, 2));
-        AntBrain ab = new AntBrain(instruction);
-        instance.setRedBrain(ab.getInstructions());
         instance.step(id);
-        int expect = 0;
+        int expect = 9;
         int result = a.state;
         assertEquals(expect, result);
     }
