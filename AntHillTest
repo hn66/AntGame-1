@@ -4,7 +4,7 @@
  */
 package antgame;
 
-import antgame.AntHill.Color;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,30 +39,36 @@ public class AntHillTest {
 
     /**
      * Test of getColor method, of class AntHill.
+     * pass if return the color assigned to the ant hill
      */
     @Test
     public void testGetColor() {
         System.out.println("getColor");
-        Color c = Color.valueOf("RED");
-        AntHill instance = new AntHill(new Cell(0,1), c);
-        AntHill.Color expResult = c;
-        AntHill.Color result = instance.getColor();
+        Color c = Color.RED;
+        Cell[][] cell_list = new Cell[100][100];
+        ArrayList<Ant> ant = new ArrayList<>();
+        World world = new World(cell_list, ant);
+        AntHill instance = new AntHill(world, new Cell(0,1), c);
+        Color expResult = c;
+        Color result = instance.getColor();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
      * Test of getCell method, of class AntHill.
+     * pass if return the correct cell
      */
     @Test
     public void testGetCell() {
         System.out.println("getCell");
-        Color c = Color.valueOf("RED");
+        Color c = Color.RED;
         Cell ce = new Cell(0, 1);
-        AntHill instance = new AntHill(ce, c);
+        Cell[][] cell_list = new Cell[100][100];
+        ArrayList<Ant> ant = new ArrayList<>();
+        World world = new World(cell_list, ant);
+        AntHill instance = new AntHill(world, ce, c);
         Cell expResult = ce;
         Cell result = instance.getCell();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 }
